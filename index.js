@@ -6,5 +6,4 @@ client.query('SELECT * FROM employee', (err, res) => {
     } else {
         console.log(res);
     }
-    client.end();
-})
+});
