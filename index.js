@@ -1,13 +1,13 @@
 const client = require('./db/connection');
 const inquirer = require('inquirer');
 
-client.query('SELECT * FROM employee', (err, res) => {
-    if (err) {
-        console.error('Error executing query', err);
-    } else {
-        console.log(res);
-    }
-});
+// client.query('SELECT * FROM employee', (err, res) => {
+//     if (err) {
+//         console.error('Error executing query', err);
+//     } else {
+//         console.log(res);
+//     }
+// });
 
 function addDepartment(name) {
     client.query('INSERT INTO department (name) VALUES ($1)', [name], (err, res) => {
@@ -15,6 +15,7 @@ function addDepartment(name) {
             console.error('Error adding department', err);
         } else {
             console.log('Department added successfully.');
+            mainMenu();
         }
     });
 };
@@ -25,6 +26,7 @@ function updateEmployeeRole(employeeId, newRoleId) {
             console.error('Error updating employee role', err);
         } else {
             console.log('Employee role updated successfully.');
+            mainMenu();
         }
     });
 };
@@ -129,7 +131,7 @@ function promptAddRole() {
             message: 'Enter the department ID for this role:'
         }
     ]).then(answers => {
-        promptAddRole(answers.title, answers.salary, answers.department_id);
+        addRole(answers.title, answers.salary, answers.department_id);
     });
 }
 
@@ -144,3 +146,38 @@ function addRole(title, salary, department_id) {
         });
 }
 
+function promptAddEmployee() {
+    inquirer.prompt([
+        {
+            name: 'first_name',
+            message: 'Enter first name:'
+        },
+        {
+            name: 'last_name',
+            message: 'Enter last name:'
+        },
+        {
+            name: 'role_id',
+            message: 'enter role ID:'
+        },
+        {
+            name: 'manager_id',
+            message: 'Enter manager ID for the employee (if no manager, leave blank):',
+            default: null
+        }
+    ]).then(answers => {
+        addEmployee(answers.first_name, answers.last_name, answers.role_id, answers.manager_id);
+    });
+}
+
+function addEmployee(first_name, last_name, role_id, manager_id) {
+    client.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)',
+        [first_name, last_name, role_id, manager_id], (err, res) => {
+            if (err) {
+                console.error('Error adding employee', err);
+            } else {
+                console.log('Employee added successfully.');
+            }
+        });
+
+}
