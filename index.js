@@ -83,6 +83,7 @@ function promptAddDepartment() {
         message: 'Enter the name of the department:'
     }).then(answer => {
         addDepartment(answer.name);
+        mainMenu();
     });
 }
 
@@ -91,8 +92,9 @@ function viewAllDepartments() {
         if (err) {
             console.error('Error retrieving departments', err);
         } else {
-            console.table(res);
+            console.table(res.rows);
         }
+        mainMenu();
     });
 }
 
@@ -101,7 +103,7 @@ function viewAllRoles() {
         if (err) {
             console.error('Error retrieving roles', err);
         } else {
-            console.table(res);
+            console.table(res.rows);
         }
     });
 }
@@ -111,7 +113,7 @@ function viewAllEmployees() {
         if (err) {
             console.error('Error retrieving employees', err);
         } else {
-            console.table(res);
+            console.table(res.rows);
         }
     });
 }
@@ -178,6 +180,9 @@ function addEmployee(first_name, last_name, role_id, manager_id) {
             } else {
                 console.log('Employee added successfully.');
             }
+            mainMenu();
         });
 
 }
+
+mainMenu();
