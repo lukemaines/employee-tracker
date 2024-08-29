@@ -19,4 +19,4 @@ Update an employee's role.
 
 ## Video Walkthrough
 
-<iframe src="https://drive.google.com/file/d/1nh3m3YrjpD5D84XrTn1_YMRRV4jSdM23/preview" width="640" height="480"></iframe>
+"https://drive.google.com/file/d/1nh3m3YrjpD5D84XrTn1_YMRRV4jSdM23/preview"
